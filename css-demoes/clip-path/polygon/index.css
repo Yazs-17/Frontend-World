@@ -1,0 +1,58 @@
+.main {
+	border-radius: 50%;
+	background-color: #f0f0f0;
+	height: 50vh;
+	width: 50vh;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow: hidden;
+}
+
+.part {
+	height: 100%;
+	width: 50%;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform-origin: left center;
+	z-index: 1;
+}
+
+.part1 {
+	z-index: 1;
+	background-color: red;
+	display: block;
+	clip-path: polygon(0% 50%, 100% 50%, 100% 50%);
+}
+
+.part2 {
+	z-index: 1;
+	background-color: green;
+	display: block;
+	clip-path: polygon(0% 0%, 100% 20%, 100% 45%);
+}
+
+.part3 {
+	z-index: 1;
+	background-color: blue;
+	display: block;
+	clip-path: polygon(0% 50%, 100% 40%, 100% 60%);
+}
+
+.part4 {
+	z-index: 1;
+	background-color: yellow;
+	display: block;
+	clip-path: polygon(0% 50%, 100% 60%, 100% 180%);
+	transform: rotateZ(130deg);
+}
+
+.part5 {
+	z-index: 1;
+	background-color: red;
+	display: block;
+	clip-path: polygon(0% 50%, 100% 50%, 100% 60%);
+	transform: rotateZ(90deg);
+}
