@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		.table {
+			min-width: 100%;
+			/*collapse:共用边距（separate与之相对）*/
+			border-collapse: collapse;
+		}
+
+		.table td,
+		.table th {
+			border: 1px solid #ddd;
+			/*table 元素框内边距*/
+			padding: 8px;
+			text-align: center;
+		}
+
+		.avatar {
+			width: 50px;
+			height: 50px;
+			/*无视图片尺寸，强制充满容器*/
+			object-fit: cover;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>头像</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>令狐冲</td>
+				<td>男</td>
+				<td><img src="" alt="令狐冲" class="avatar"></td>
+				<td class="btn-group">
+					<button>编辑</button>
+					<button>删除</button>
+				</td>
+			</tr>
+			<tr>
+				<td>任盈盈</td>
+				<td>女</td>
+				<td><img src="" alt="任盈盈" class="avatar"></td>
+				<td class="btn-group">
+					<button>编辑</button>
+					<button>删除</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>
