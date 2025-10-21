@@ -1,8 +1,16 @@
 :root {
-	/* 淡银灰 */
-	--main-color-1: #c1b2a3;
+	/*  */
 	/* 月灰 */
-	--main-color-2: #b7ae8f;
-	/* 百灵鸟灰 */
-	--main-color-3: #b4a992;
+	--main-color-hui: #b7ae8f;
+	--main-color-qin: #0ff;
+	--main-color-zi: #f0f;
+	--main-color-hei: #0a0a0f;
+	--main-color-lv: #7cff00;
+	--main-color-text: #e0e0f8;
+	--hui: #b7ae8f;
+	--qin: #0ff;
+	--zi: #f0f;
+	--hei: #0a0a0f;
+	--lv: #7cff00;
+	--text: #e0e0f8;
 }

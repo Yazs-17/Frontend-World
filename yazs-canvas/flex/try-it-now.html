@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Flex 布局测试 Demo</title>
+	<style>
+		:root {
+			--bg: #0f1724;
+			--card: #0b1220;
+			--muted: #9aa5b1;
+			--accent: #60a5fa;
+			--gap: 12px;
+			font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			color: #e6eef6;
+		}
+
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+			background: linear-gradient(180deg, #071029 0%, #071426 100%);
+		}
+
+		.app {
+			max-width: 1100px;
+			margin: 28px auto;
+			padding: 18px;
+			border-radius: 12px;
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.03));
+			box-shadow: 0 6px 30px rgba(2, 6, 23, 0.6);
+		}
+
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 18px
+		}
+
+		header h1 {
+			font-size: 18px;
+			margin: 0
+		}
+
+		header p {
+			margin: 0;
+			color: var(--muted);
+			font-size: 13px
+		}
+
+		.controls {
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			align-items: center
+		}
+
+		.control {
+			background: var(--card);
+			padding: 8px;
+			border-radius: 8px;
+			color: var(--muted);
+			font-size: 13px;
+			display: flex;
+			gap: 8px;
+			align-items: center
+		}
+
+		.control select,
+		.control button {
+			background: transparent;
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			color: inherit;
+			padding: 6px 8px;
+			border-radius: 6px
+		}
+
+		.control label {
+			font-size: 12px;
+			color: var(--muted)
+		}
+
+		.stage {
+			margin-top: 16px;
+			padding: 14px;
+			border-radius: 10px;
+			background: linear-gradient(180deg, rgba(12, 18, 27, 0.6), rgba(6, 10, 16, 0.6));
+			border: 1px solid rgba(255, 255, 255, 0.03);
+		}
+
+		/* demo container — 可视化区域 */
+		.demo-wrap {
+			display: flex;
+			gap: var(--gap);
+			flex-direction: column
+		}
+
+		.demo-info {
+			color: var(--muted);
+			font-size: 13px;
+			margin-bottom: 8px
+		}
+
+		.flex-container {
+			min-height: 220px;
+			border-radius: 8px;
+			padding: 12px;
+			border: 1px dashed rgba(255, 255, 255, 0.04);
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+			display: flex;
+			gap: var(--gap);
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			transition: all .2s ease;
+		}
+
+		.box {
+			min-width: 80px;
+			min-height: 60px;
+			padding: 8px;
+			border-radius: 8px;
+			background: linear-gradient(180deg, #0e2540, #07203a);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: #dbeafe;
+			border: 1px solid rgba(255, 255, 255, 0.04)
+		}
+
+		.box.small {
+			min-width: 60px;
+			min-height: 40px
+		}
+
+		.box.big {
+			min-width: 120px;
+			min-height: 80px
+		}
+
+		.meta {
+			font-size: 12px;
+			color: var(--muted);
+			margin-top: 6px
+		}
+
+		.controls-row {
+			display: flex;
+			gap: 8px;
+			margin-top: 10px;
+			flex-wrap: wrap
+		}
+
+		.btn {
+			padding: 8px 10px;
+			border-radius: 8px;
+			border: none;
+			background: var(--accent);
+			color: #04233a;
+			cursor: pointer
+		}
+
+		.btn.secondary {
+			background: transparent;
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			color: var(--muted)
+		}
+
+		footer {
+			margin-top: 12px;
+			color: var(--muted);
+			font-size: 12px
+		}
+
+		@media (max-width:700px) {
+			.app {
+				margin: 12px;
+				padding: 12px
+			}
+
+			.flex-container {
+				min-height: 160px
+			}
+
+			.box {
+				min-width: 56px;
+				min-height: 48px
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="app">
+		<header>
+			<div>
+				<h1>Flex 布局测试 Demo</h1>
+				<p>交互式演示：改变 direction / justify / align / wrap / order / grow/shrink</p>
+			</div>
+			<div class="controls">
+				<div class="control">
+					<label for="direction">direction</label>
+					<select id="direction">
+						<option value="row">row</option>
+						<option value="row-reverse">row-reverse</option>
+						<option value="column">column</option>
+						<option value="column-reverse">column-reverse</option>
+					</select>
+				</div>
+
+				<div class="control">
+					<label for="justify">justify</label>
+					<select id="justify">
+						<option value="flex-start">flex-start</option>
+						<option value="center">center</option>
+						<option value="flex-end">flex-end</option>
+						<option value="space-between">space-between</option>
+						<option value="space-around">space-around</option>
+						<option value="space-evenly">space-evenly</option>
+					</select>
+				</div>
+
+				<div class="control">
+					<label for="align">align</label>
+					<select id="align">
+						<option value="stretch">stretch</option>
+						<option value="flex-start">flex-start</option>
+						<option value="center">center</option>
+						<option value="flex-end">flex-end</option>
+						<option value="baseline">baseline</option>
+					</select>
+				</div>
+
+				<div class="control">
+					<label for="wrap">wrap</label>
+					<select id="wrap">
+						<option value="nowrap">nowrap</option>
+						<option value="wrap">wrap</option>
+						<option value="wrap-reverse">wrap-reverse</option>
+					</select>
+				</div>
+			</div>
+		</header>
+
+		<section class="stage">
+			<div class="demo-wrap">
+				<div class="demo-info">按下按钮可以添加/移除节点，或改变节点的 flex 属性来观察效果。</div>
+
+				<div id="flex" class="flex-container" aria-label="flex demo">
+					<div class="box" data-id="1">
+						<div>Item 1</div>
+						<div class="meta">order:0; flex:0 1 auto</div>
+					</div>
+					<div class="box big" data-id="2">
+						<div>Item 2</div>
+						<div class="meta">order:0; flex:1 1 auto</div>
+					</div>
+					<div class="box small" data-id="3">
+						<div>Item 3</div>
+						<div class="meta">order:0; flex:0 1 auto</div>
+					</div>
+					<div class="box" data-id="4">
+						<div>Item 4</div>
+						<div class="meta">order:0; flex:0 1 auto</div>
+					</div>
+				</div>
+
+				<div class="controls-row">
+					<button id="add" class="btn">添加节点</button>
+					<button id="remove" class="btn secondary">移除节点</button>
+					<button id="randomize" class="btn secondary">随机修改节点样式</button>
+
+					<div style="margin-left:8px;display:flex;gap:8px;align-items:center">
+						<label style="color:var(--muted);font-size:13px">选中节点调整：</label>
+						<select id="selectedFlex">
+							<option value="0 1 auto">flex: 0 1 auto</option>
+							<option value="1 1 0">flex: 1 1 0</option>
+							<option value="2 1 0">flex: 2 1 0</option>
+							<option value="0 0 auto">flex: 0 0 auto</option>
+						</select>
+						<button id="applyFlex" class="btn">应用到选中</button>
+						<button id="clearSelection" class="btn secondary">清除选中</button>
+					</div>
+				</div>
+
+				<footer>提示：点击某个卡片以选中它（会高亮边框），再使用“应用到选中”来修改该项的 flex。</footer>
+			</div>
+		</section>
+	</div>
+
+	<script>
+		const flex = document.getElementById('flex');
+		const direction = document.getElementById('direction');
+		const justify = document.getElementById('justify');
+		const align = document.getElementById('align');
+		const wrap = document.getElementById('wrap');
+
+		function applyContainer () {
+			flex.style.flexDirection = direction.value;
+			flex.style.justifyContent = justify.value;
+			flex.style.alignItems = align.value;
+			flex.style.flexWrap = wrap.value;
+		}
+
+		[direction, justify, align, wrap].forEach(el => el.addEventListener('change', applyContainer));
+
+		// 添加 / 移除 节点
+		let counter = 5;
+		document.getElementById('add').addEventListener('click', () => {
+			const div = document.createElement('div');
+			div.className = 'box';
+			div.dataset.id = String(counter);
+			div.innerHTML = `<div>Item ${counter}</div><div class='meta'>order:0; flex:0 1 auto</div>`;
+			makeSelectable(div);
+			flex.appendChild(div);
+			counter++;
+		});
+
+		document.getElementById('remove').addEventListener('click', () => {
+			if (flex.lastElementChild) flex.removeChild(flex.lastElementChild);
+		});
+
+		// 选中逻辑
+		let selected = null;
+		function clearSelection () {
+			if (selected) {
+				selected.style.boxShadow = '';
+				selected.style.border = '1px solid rgba(255,255,255,0.04)';
+				selected = null;
+			}
+		}
+		document.getElementById('clearSelection').addEventListener('click', clearSelection);
+
+		function makeSelectable (node) {
+			node.addEventListener('click', (ev) => {
+				ev.stopPropagation();
+				if (selected === node) {
+					// toggle off
+					clearSelection();
+					return;
+				}
+				clearSelection();
+				selected = node;
+				node.style.boxShadow = '0 0 0 3px rgba(96,165,250,0.12)';
+				node.style.border = '1px solid rgba(96,165,250,0.4)';
+			});
+		}
+
+		// 初始化已有节点可选
+		Array.from(flex.children).forEach(makeSelectable);
+
+		// 应用 flex 到选中项
+		document.getElementById('applyFlex').addEventListener('click', () => {
+			if (!selected) return alert('请先点击选中一个节点');
+			const val = document.getElementById('selectedFlex').value;
+			selected.style.flex = val;
+			const meta = selected.querySelector('.meta');
+			if (meta) meta.textContent = `order:${selected.style.order || 0}; flex:${val}`;
+		});
+
+		// 随机化节点样式示例（调整 order / flex / size）
+		document.getElementById('randomize').addEventListener('click', () => {
+			Array.from(flex.children).forEach((node) => {
+				const ord = Math.floor(Math.random() * 5) - 2; // -2..2
+				node.style.order = String(ord);
+				const f = ["0 1 auto", "1 1 0", "2 1 0"][Math.floor(Math.random() * 3)];
+				node.style.flex = f;
+				const cls = ['small', '', 'big'][Math.floor(Math.random() * 3)];
+				node.classList.remove('small', 'big');
+				if (cls) node.classList.add(cls);
+				const meta = node.querySelector('.meta');
+				if (meta) meta.textContent = `order:${ord}; flex:${f}`;
+			});
+		});
+
+		// 点击空白处取消选中
+		document.body.addEventListener('click', (e) => {
+			if (!flex.contains(e.target)) clearSelection();
+		});
+
+		// 初始应用
+		applyContainer();
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Card for Yazs</title>
+	<style>
+		:root {
+			--card-bg: rgba(255, 255, 255, 0.05);
+		}
+
+		.card {
+			background: var(--card-bg);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			padding: 1.5rem;
+			border-radius: 1rem;
+			transition: all 0.3s ease;
+			backdrop-filter: blur(8px);
+		}
+
+		.card:hover {
+			transform: translateY(-6px) scale(1.03);
+			box-shadow: var(--glow);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="card">
+		TODO
+	</div>
+</body>
+
+</html>
