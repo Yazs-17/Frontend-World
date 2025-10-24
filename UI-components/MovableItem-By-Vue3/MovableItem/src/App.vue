@@ -32,7 +32,7 @@ footer {
 	<div class="container">
 		<header>MovableItem</header>
 		<main>
-			<FloatingItemBasic></FloatingItemBasic>
+			<FloatingItemBasic />
 
 
 		</main>
