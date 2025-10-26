@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Kiro-style Buttons — Replica</title>
+	<style>
+		:root {
+			--bg: #0b1020;
+			--card: #0f1724;
+			--muted: rgba(255, 255, 255, 0.6);
+			--glass: rgba(255, 255, 255, 0.03);
+			--accent-1: #7afcff;
+			--accent-2: #6d28d9;
+			--accent-3: #ff66b3;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			background: radial-gradient(1200px 600px at 10% 10%, rgba(122, 252, 255, 0.05), transparent 8%),
+				radial-gradient(800px 400px at 90% 90%, rgba(255, 102, 179, 0.03), transparent 10%),
+				var(--bg);
+			color: #e6eef8;
+			-webkit-font-smoothing: antialiased;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 48px;
+		}
+
+		.wrap {
+			width: 100%;
+			max-width: 980px;
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+			border-radius: 14px;
+			padding: 36px;
+			box-shadow: 0 6px 30px rgba(2, 6, 23, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+		}
+
+		h1 {
+			margin: 0 0 18px 0;
+			font-size: 20px;
+			font-weight: 600
+		}
+
+		p.lead {
+			margin: 0 0 22px 0;
+			color: var(--muted)
+		}
+
+		.row {
+			display: flex;
+			gap: 18px;
+			flex-wrap: wrap
+		}
+
+		/* Base button */
+		.btn {
+			--pad-y: 12px;
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			padding: var(--pad-y) 18px;
+			border-radius: 10px;
+			font-weight: 600;
+			letter-spacing: 0.2px;
+			cursor: pointer;
+			border: 0;
+			background: transparent;
+			color: inherit;
+			position: relative;
+			overflow: visible;
+			transition: transform .15s ease, box-shadow .18s ease;
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		.btn:active {
+			transform: translateY(1px)
+		}
+
+		/* Primary gradient with neon glow */
+		.btn--primary {
+			color: #061023;
+			background: linear-gradient(90deg, var(--accent-1), #8b5cf6 40%, var(--accent-3));
+			box-shadow: 0 6px 18px rgba(109, 40, 217, 0.18), 0 0 30px rgba(122, 252, 255, 0.06) inset;
+		}
+
+		.btn--primary::after {
+			/* subtle sheen */
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: linear-gradient(120deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
+			border-radius: 10px;
+			pointer-events: none;
+			mix-blend-mode: overlay;
+		}
+
+		.btn--primary:focus {
+			outline: 3px solid rgba(138, 86, 255, 0.18);
+			outline-offset: 3px
+		}
+
+		.btn--primary:hover {
+			transform: translateY(-2px);
+			filter: brightness(1.03)
+		}
+
+		/* Outline / ghost */
+		.btn--ghost {
+			color: var(--muted);
+			background: transparent;
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			box-shadow: 0 4px 18px rgba(2, 6, 23, 0.45);
+		}
+
+		.btn--ghost:hover {
+			background: rgba(255, 255, 255, 0.02);
+			transform: translateY(-2px)
+		}
+
+		/* Glass / soft blur */
+		.btn--glass {
+			background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+			border: 1px solid rgba(255, 255, 255, 0.04);
+			backdrop-filter: blur(6px) saturate(120%);
+			color: var(--muted);
+		}
+
+		/* small icon button */
+		.btn--icon {
+			padding: 10px;
+			border-radius: 10px;
+			width: 44px;
+			height: 44px;
+			justify-content: center;
+		}
+
+		/* tiny label style */
+		.muted {
+			color: var(--muted);
+			font-size: 13px;
+			margin-top: 12px
+		}
+
+		/* pretty code for the glow ring used by Kiro-like buttons */
+		.glow {
+			position: absolute;
+			inset: -6px;
+			border-radius: 14px;
+			pointer-events: none;
+			z-index: -1;
+			background: radial-gradient(400px 80px at 20% 20%, rgba(122, 252, 255, 0.12), transparent 8%),
+				radial-gradient(300px 60px at 80% 80%, rgba(255, 102, 179, 0.06), transparent 8%);
+			filter: blur(14px);
+			opacity: 0.92;
+			transform: translateY(6px);
+		}
+
+		/* nice small svg icon */
+		.icon {
+			width: 16px;
+			height: 16px;
+			display: inline-block;
+			fill: currentColor
+		}
+
+		/* Responsive */
+		@media (max-width:640px) {
+			.row {
+				justify-content: center
+			}
+
+			.wrap {
+				padding: 20px
+			}
+		}
+
+		/* reduced motion */
+		@media (prefers-reduced-motion: reduce) {
+			.btn {
+				transition: none
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="wrap">
+		<h1>Replica: Kiro.dev 按钮</h1>
+		<p class="lead">一些常见的按钮变体：渐变主按钮、玻璃按钮、幽灵按钮和图标按钮。支持键盘 focus 与小动画效果。</p>
+
+		<div class="row" style="margin-bottom:18px;align-items:center">
+			<button class="btn btn--primary" aria-label="Primary action">
+				<span class="glow" aria-hidden="true"></span>
+				<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M12 2L15 8H9L12 2zM12 22l-3-6h6l-3 6zM2 12l6-3v6l-6-3zM22 12l-6 3V9l6 3z" />
+				</svg>
+				Primary
+			</button>
+
+			<button class="btn btn--glass" aria-label="Secondary action">
+				<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+						stroke-linejoin="round" fill="none" />
+				</svg>
+				Secondary
+			</button>
+
+			<button class="btn btn--ghost" aria-label="Ghost action">Ghost</button>
+
+			<button class="btn btn--primary btn--icon" aria-label="Like">
+				<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+					<path
+						d="M12 21s-7-4.35-9-7.2C1.8 11 3 7 6 5c2.1-1.2 4.9-.4 6 1 1.1-1.4 3.9-2.2 6-1 3 2 4.2 6 3 8.8-2 2.85-9 7.2-9 7.2z" />
+				</svg>
+			</button>
+		</div>
+
+		<div class="muted">提示：可用 Tab 键来聚焦按钮，按 Space 或 Enter 激活。</div>
+	</div>
+
+	<script>
+		// Small accessibility/js helpers: ensure keyboard shows focus, and add a tiny click ripple for charm.
+		(function () {
+			// Add keyboard class when tabbing so :focus styles are visible for keyboard users
+			function handleFirstTab (e) {
+				if (e.key === 'Tab') {
+					document.documentElement.classList.add('user-is-tabbing');
+					window.removeEventListener('keydown', handleFirstTab);
+				}
+			}
+			window.addEventListener('keydown', handleFirstTab);
+
+			// Optional ripple: create a subtle expanding circle on click for .btn
+			document.addEventListener('click', function (e) {
+				var b = e.target.closest('.btn');
+				if (!b) return;
+				var r = document.createElement('span');
+				r.style.position = 'absolute';
+				r.style.borderRadius = '50%';
+				r.style.pointerEvents = 'none';
+				r.style.background = 'rgba(255,255,255,0.12)';
+				r.style.width = r.style.height = '8px';
+				r.style.left = (e.offsetX - 4) + 'px';
+				r.style.top = (e.offsetY - 4) + 'px';
+				r.style.opacity = '0.9';
+				r.style.transform = 'scale(1)';
+				r.style.transition = 'transform .45s ease, opacity .45s ease';
+				b.appendChild(r);
+				requestAnimationFrame(function () {
+					r.style.transform = 'scale(18)'; r.style.opacity = '0';
+				});
+				setTimeout(function () { r.remove(); }, 500);
+			});
+		})();
+	</script>
+</body>
+
+</html>
